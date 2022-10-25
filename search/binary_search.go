@@ -1,4 +1,4 @@
-package array
+package search
 
 // 一个从小到大的数组中查找一个数的索引
 func BinarySearch(arr []int, v int) int {
@@ -12,6 +12,7 @@ func BinarySearch(arr []int, v int) int {
 			// 索引值大于v
 			l = i
 		} else {
+			// 索引值小于v
 			r = i
 		}
 		i = (l + r) / 2

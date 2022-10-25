@@ -67,16 +67,36 @@ var testTemps = []struct {
 	},
 }
 
-func benckmarkFramework(b *testing.B, f func([]int) []int) {
-	for i := 0; i < b.N; i++ {
-		for _, test := range testTemps {
-			if actual := f(test.input); !reflect.DeepEqual(actual, test.expect) {
-				b.Errorf("[%v]expect %v,actual %v", test.name, test.expect, actual)
-			}
+func testFramework(t *testing.T, f func([]int) []int) {
+	for _, test := range testTemps {
+		if actual := f(test.input); !reflect.DeepEqual(actual, test.expect) {
+			t.Errorf("[%v]expect %v,actual %v", test.name, test.expect, actual)
 		}
 	}
 }
 
+func benckmarkFramework(b *testing.B, f func([]int) []int) {
+	for i := 0; i < b.N; i++ {
+		for _, test := range testTemps {
+			f(test.input)
+		}
+	}
+}
+
+// test
+func TestSelectSort(t *testing.T) {
+	testFramework(t, sort.SelectSort)
+}
+
+func TestBubbleSort(t *testing.T) {
+	testFramework(t, sort.BubbleSort)
+}
+
+func TestInsertionSort(t *testing.T) {
+	testFramework(t, sort.InsertionSort)
+}
+
+// benchmark
 func BenchmarkSelectSort(b *testing.B) {
 	benckmarkFramework(b, sort.SelectSort)
 }
