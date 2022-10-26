@@ -6,44 +6,24 @@ import "algorithm/utils"
 快速排序
 */
 func QuickSort(arr []int) []int {
-	// 基线条件
 	if len(arr) < 2 {
 		return arr
 	}
-	pivot := arr[0] // 基准值条件
-	same := []int{pivot}
-	less := make([]int, 0)
-	more := make([]int, 0)
-	// 通过与基准值的比较，分为三个区间
-	for i := 1; i < len(arr); i++ {
-		if arr[i] < pivot {
-			less = append(less, arr[i])
-		} else if arr[i] > pivot {
-			more = append(more, arr[i])
+	// 进行原地分组
+	l, r := 0, len(arr)-1
+	for l < r {
+		if arr[l+1] < arr[l] {
+			// 当光标位小于后一位时,
+			utils.Swap(arr, l, l+1)
+			l++
+		} else if arr[l+1] > arr[l] {
+			utils.Swap(arr, l+1, r)
+			r--
 		} else {
-			same = append(same, arr[i])
+			l++
 		}
 	}
-	return append(append(QuickSort(less), same...), QuickSort(more)...)
-}
-
-func QuickSort2(arr []int) {
-	if len(arr) < 2 {
-		return
-	}
-	p := partition(arr, 0)
-	QuickSort2(arr[:p])
-	QuickSort2(arr[p:])
-}
-
-func partition(arr []int, p int) int {
-	for i := p; i < len(arr); i++ {
-		if arr[i] < arr[p] {
-			utils.Swap(arr, i, p)
-			p = i
-		} else if arr[i] > arr[p] {
-
-		}
-	}
-	return p
+	QuickSort(arr[l+1:]) //较小部分排序
+	QuickSort(arr[:l])   //较大部分排序
+	return arr
 }
