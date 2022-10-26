@@ -1,10 +1,12 @@
 package main
 
 import (
-	"algorithm/recursion"
+	"algorithm/sort"
 	"fmt"
 )
 
 func main() {
-	fmt.Println(recursion.Sum([]int{1, 2, 3, 4}))
+	arr := []int{1, 2, 3, 4}
+	sort.QuickSort2(arr, 0)
+	fmt.Println(arr)
 }

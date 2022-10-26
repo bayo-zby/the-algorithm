@@ -96,6 +96,10 @@ func TestInsertionSort(t *testing.T) {
 	testFramework(t, sort.InsertionSort)
 }
 
+func TestQuickSort(t *testing.T) {
+	testFramework(t, sort.QuickSort)
+}
+
 // benchmark
 func BenchmarkSelectSort(b *testing.B) {
 	benckmarkFramework(b, sort.SelectSort)
@@ -107,4 +111,8 @@ func BenchmarkBubbleSort(b *testing.B) {
 
 func BenchmarkInsertionSort(b *testing.B) {
 	benckmarkFramework(b, sort.InsertionSort)
+}
+
+func BenchmarkQuickSort(b *testing.B) {
+	benckmarkFramework(b, sort.QuickSort)
 }
